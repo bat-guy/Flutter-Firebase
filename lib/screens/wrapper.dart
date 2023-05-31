@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/screens/auth/auth.dart';
 import 'package:flutter_firebase/screens/home/home.dart';
 
 class Wrapper extends StatelessWidget {
@@ -6,6 +7,6 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Home();
+    return const Authenticate();
   }
 }
