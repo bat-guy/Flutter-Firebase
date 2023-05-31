@@ -23,6 +23,17 @@ class AuthService {
     }
   }
 
+  Future registerWithEmailPass(String email, String password) async {
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      User? user = result.user;
+      return _userFromFireBase(user);
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
   Future signOut() async {
     try {
       return await _auth.signOut();
