@@ -5,13 +5,15 @@ import 'package:flutter_firebase/screens/home/home.dart';
 import 'package:provider/provider.dart';
 
 class Wrapper extends StatelessWidget {
-  const Wrapper({super.key});
+  final Stream<UserCred?>? user;
+
+  const Wrapper({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserCred?>(context);
     print(user);
 
-    return user == null ? Authenticate() : Home();
+    return user == null ? Authenticate() : Home(uid: user.uid);
   }
 }
