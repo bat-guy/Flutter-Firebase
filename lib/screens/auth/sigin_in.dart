@@ -24,7 +24,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return _loading
-        ? Loading()
+        ? Loading(backgroundColor: Colors.deepPurple)
         : Scaffold(
             backgroundColor: Colors.indigo.shade100,
             appBar: AppBar(
