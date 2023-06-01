@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/models/brew.dart';
 import 'package:flutter_firebase/screens/home/brew_list.dart';
+import 'package:flutter_firebase/screens/home/settings_form.dart';
 import 'package:flutter_firebase/services/auth_service.dart';
 import 'package:flutter_firebase/services/database.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,17 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void _showSettingsPanel() {
+      showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return Container(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+              child: SettingsForm(),
+            );
+          });
+    }
+
     return StreamProvider<List<Brew>?>.value(
         initialData: null,
         value: DatabaseService(uid: uid).brews,
@@ -29,6 +41,15 @@ class Home extends StatelessWidget {
                 },
                 icon: Icon(Icons.person),
                 label: Text('Logout'),
+                style: ButtonStyle(
+                  iconColor: MaterialStateColor.resolveWith((states) => Colors.white),
+                  foregroundColor: MaterialStateColor.resolveWith((states) => Colors.white),
+                ),
+              ),
+              TextButton.icon(
+                onPressed: () => _showSettingsPanel(),
+                icon: Icon(Icons.settings),
+                label: Text('Settings'),
                 style: ButtonStyle(
                   iconColor: MaterialStateColor.resolveWith((states) => Colors.white),
                   foregroundColor: MaterialStateColor.resolveWith((states) => Colors.white),
