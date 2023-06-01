@@ -15,12 +15,20 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _showSettingsPanel() {
+    void showSettingsPanel() {
       showModalBottomSheet(
           context: context,
+          backgroundColor: Colors.transparent,
           builder: (context) {
             return Container(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                ),
+              ),
               child: const SettingsForm(),
             );
           });
@@ -48,7 +56,7 @@ class Home extends StatelessWidget {
                 ),
               ),
               TextButton.icon(
-                onPressed: () => _showSettingsPanel(),
+                onPressed: () => showSettingsPanel(),
                 icon: const Icon(Icons.settings),
                 label: Text(Strings.settings),
                 style: ButtonStyle(

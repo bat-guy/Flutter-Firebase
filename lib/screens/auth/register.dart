@@ -20,6 +20,20 @@ class _RegisterStateState extends State<RegisterState> {
   String _error = '';
   bool _loading = false;
 
+//Function called to register the users.
+  void registerUser() async {
+    if (_formKey.currentState?.validate() == true) {
+      setState(() => _loading = true);
+      dynamic result = await _auth.registerWithEmailPass(_email, _password);
+      if (result == null) {
+        setState(() {
+          _error = Strings.supplyLegalEmail;
+          _loading = false;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return _loading
@@ -50,36 +64,28 @@ class _RegisterStateState extends State<RegisterState> {
                       children: [
                         const SizedBox(height: 20),
                         TextFormField(
-                          decoration: TextInputDeclaration.copyWith(hintText: Strings.email),
+                          decoration: textInputDeclaration.copyWith(hintText: Strings.email),
                           validator: (val) => val?.isEmpty == true ? Strings.enterAnEmail : null,
                           keyboardType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.next,
                           onChanged: (val) {
                             setState(() => _email = val);
                           },
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
-                          decoration: TextInputDeclaration.copyWith(hintText: Strings.password),
+                          decoration: textInputDeclaration.copyWith(hintText: Strings.password),
                           validator: (val) => (val == null || val.length < 6) ? Strings.enterPassword : null,
                           obscureText: true,
+                          textInputAction: TextInputAction.done,
+                          onEditingComplete: () async => registerUser(),
                           onChanged: (val) {
                             setState(() => _password = val);
                           },
                         ),
                         const SizedBox(height: 20),
                         TextButton(
-                          onPressed: () async {
-                            if (_formKey.currentState?.validate() == true) {
-                              setState(() => _loading = true);
-                              dynamic result = await _auth.registerWithEmailPass(_email, _password);
-                              if (result == null) {
-                                setState(() {
-                                  _error = Strings.supplyLegalEmail;
-                                  _loading = false;
-                                });
-                              }
-                            }
-                          },
+                          onPressed: () async => registerUser(),
                           style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => Colors.blue.shade900)),
                           child: Text(
                             Strings.register,

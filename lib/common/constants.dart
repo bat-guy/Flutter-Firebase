@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const TextInputDeclaration = InputDecoration(
+const textInputDeclaration = InputDecoration(
     hintText: 'Password',
     fillColor: Color(0xFFB2EBF2),
     filled: true,
@@ -16,24 +16,20 @@ const needle = '{#}';
 final RegExp exp = new RegExp(needleRegex);
 
 //Function that formats strings with the given values
-String interpolate(String string, List l) {
-  Iterable<RegExpMatch> matches = exp.allMatches(string);
+String interpolate(String string, List params) {
+  String result = string;
+  for (int i = 1; i < params.length + 1; i++) {
+    result = result.replaceAll('%${i}\$', params[i - 1]);
+  }
 
-  assert(l.length == matches.length);
-
-  var i = -1;
-  return string.replaceAllMapped(exp, (match) {
-    print(match.group(0));
-    i = i + 1;
-    return '${l[i]}';
-  });
+  return result;
 }
 
 class Strings {
   static String settings = 'Settings';
   static String logout = 'Logout';
   static String home = 'Home';
-  static String takesPlaceholderSugars = 'Takes %s sugar(s)';
+  static String takesPlaceholderSugars = 'Takes %1\$ sugar(s)';
   static String register = 'Register';
   static String signIn = 'Sign In';
   static String email = 'Email';
@@ -45,7 +41,7 @@ class Strings {
   static String updateYourBrewSettings = 'Update your brew settings.';
   static String name = 'Name';
   static String enterName = 'Enter a name';
-  static String placeHolderSugars = '%s Sugars';
+  static String placeHolderSugars = '%1\$ Sugars';
   static String update = 'UPDATE';
 }
 

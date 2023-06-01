@@ -1,6 +1,3 @@
-import 'dart:ffi';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_firebase/common/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/common/loading.dart';
@@ -57,21 +54,22 @@ class _SettingsFormState extends State<SettingsForm> {
               print(userData);
               return Column(
                 children: [
+                  const SizedBox(height: 20),
                   Text(
                     Strings.updateYourBrewSettings,
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 20),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   TextFormField(
                     initialValue: (userData?.name != null) ? userData?.name : '',
-                    decoration: TextInputDeclaration.copyWith(hintText: Strings.name),
+                    decoration: textInputDeclaration.copyWith(hintText: Strings.name),
                     validator: (val) => val?.isEmpty == true ? Strings.enterName : null,
                     keyboardType: TextInputType.name,
                     onChanged: (val) => setState(() => _currentName = val),
                   ),
                   const SizedBox(height: 20),
                   DropdownButtonFormField(
-                    decoration: TextInputDeclaration,
+                    decoration: textInputDeclaration,
                     value: getSugarsData(userData),
                     items: _sugars
                         .map((val) => DropdownMenuItem(

@@ -6,6 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/common/constants.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_firebase/main.dart';
@@ -27,4 +28,19 @@ void main() {
   //   expect(find.text('0'), findsNothing);
   //   expect(find.text('1'), findsOneWidget);
   // });
+
+  test('String.format extension works', () {
+    // Given
+    const String text = 'Today is %1\$ and tomorrow is %2\$';
+    final List<String> placeHolders = List.empty(growable: true)
+      ..add('Monday')
+      ..add('Tuesday');
+    const String expected = 'Today is Monday and tomorrow is Tuesday';
+
+    // When
+    final String actual = interpolate(text, placeHolders);
+
+    // Then
+    expect(actual, expected);
+  });
 }
