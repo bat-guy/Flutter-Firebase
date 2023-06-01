@@ -44,26 +44,21 @@ class Home extends StatelessWidget {
             backgroundColor: Colors.brown[700],
             elevation: 0,
             actions: [
-              TextButton.icon(
-                onPressed: () async {
-                  await _auth.signOut();
+              PopupMenuButton(
+                onSelected: (value) async {
+                  value == 0 ? _auth.signOut() : showSettingsPanel();
                 },
-                icon: const Icon(Icons.person),
-                label: Text(Strings.logout),
-                style: ButtonStyle(
-                  iconColor: MaterialStateColor.resolveWith((states) => Colors.white),
-                  foregroundColor: MaterialStateColor.resolveWith((states) => Colors.white),
-                ),
+                itemBuilder: (_) => [
+                  PopupMenuItem(
+                    value: 0,
+                    child: Text(Strings.logout),
+                  ),
+                  PopupMenuItem(
+                    value: 1,
+                    child: Text(Strings.settings),
+                  ),
+                ],
               ),
-              TextButton.icon(
-                onPressed: () => showSettingsPanel(),
-                icon: const Icon(Icons.settings),
-                label: Text(Strings.settings),
-                style: ButtonStyle(
-                  iconColor: MaterialStateColor.resolveWith((states) => Colors.white),
-                  foregroundColor: MaterialStateColor.resolveWith((states) => Colors.white),
-                ),
-              )
             ],
           ),
           body: Container(
