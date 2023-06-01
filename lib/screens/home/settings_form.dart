@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter_firebase/common/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -39,6 +41,16 @@ class _SettingsFormState extends State<SettingsForm> {
             value: _currentSugars == '' ? _sugars[0] : _sugars[0],
             items: _sugars.map((val) => DropdownMenuItem(value: val, child: Text('$val Sugars'))).toList(),
             onChanged: (val) => _currentSugars = val ?? '',
+          ),
+          const SizedBox(height: 20),
+          Slider(
+            min: 100,
+            max: 900,
+            divisions: 8,
+            value: _currentStrength == '' ? 100 : double.parse(_currentStrength),
+            onChanged: (val) => setState(() => _currentStrength = val.round().toString()),
+            activeColor: Colors.brown[_currentStrength == '' ? 100 : int.parse(_currentStrength)],
+            inactiveColor: Colors.brown[100],
           ),
           const SizedBox(height: 20),
           TextButton(
