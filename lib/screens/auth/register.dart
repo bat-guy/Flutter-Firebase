@@ -29,12 +29,12 @@ class _RegisterStateState extends State<RegisterState> {
             appBar: AppBar(
               backgroundColor: Colors.indigo.shade400,
               elevation: 0,
-              title: Text('Register'),
+              title: Text(Strings.register),
               actions: [
                 TextButton.icon(
                   onPressed: () => widget.toggleView(),
                   icon: const Icon(Icons.person),
-                  label: Text('Sign In'),
+                  label: Text(Strings.signIn),
                   style: ButtonStyle(
                     foregroundColor: MaterialStateColor.resolveWith((states) => Colors.white),
                     iconColor: MaterialStateColor.resolveWith((states) => Colors.white),
@@ -50,8 +50,8 @@ class _RegisterStateState extends State<RegisterState> {
                       children: [
                         const SizedBox(height: 20),
                         TextFormField(
-                          decoration: TextInputDeclaration.copyWith(hintText: 'Email'),
-                          validator: (val) => val?.isEmpty == true ? 'Enter an email' : null,
+                          decoration: TextInputDeclaration.copyWith(hintText: Strings.email),
+                          validator: (val) => val?.isEmpty == true ? Strings.enterAnEmail : null,
                           keyboardType: TextInputType.emailAddress,
                           onChanged: (val) {
                             setState(() => _email = val);
@@ -59,8 +59,8 @@ class _RegisterStateState extends State<RegisterState> {
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
-                          decoration: TextInputDeclaration.copyWith(hintText: 'Password'),
-                          validator: (val) => (val == null || val.length < 6) ? 'Enter a password 6+ character long' : null,
+                          decoration: TextInputDeclaration.copyWith(hintText: Strings.password),
+                          validator: (val) => (val == null || val.length < 6) ? Strings.enterPassword : null,
                           obscureText: true,
                           onChanged: (val) {
                             setState(() => _password = val);
@@ -74,20 +74,20 @@ class _RegisterStateState extends State<RegisterState> {
                               dynamic result = await _auth.registerWithEmailPass(_email, _password);
                               if (result == null) {
                                 setState(() {
-                                  _error = 'Supply legal email';
+                                  _error = Strings.supplyLegalEmail;
                                   _loading = false;
                                 });
                               }
                             }
                           },
                           style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => Colors.blue.shade900)),
-                          child: const Text(
-                            'Register',
-                            style: TextStyle(color: Colors.white),
+                          child: Text(
+                            Strings.register,
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
                         const SizedBox(height: 12),
-                        Text(_error, style: TextStyle(color: Colors.red, fontSize: 14))
+                        Text(_error, style: const TextStyle(color: Colors.red, fontSize: 14))
                       ],
                     ))),
           );

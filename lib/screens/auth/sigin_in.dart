@@ -24,18 +24,18 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return _loading
-        ? Loading(backgroundColor: Colors.deepPurple)
+        ? const Loading(backgroundColor: Colors.deepPurple)
         : Scaffold(
             backgroundColor: Colors.indigo.shade100,
             appBar: AppBar(
               backgroundColor: Colors.indigo.shade400,
               elevation: 0,
-              title: Text('Sign In'),
+              title: Text(Strings.signIn),
               actions: [
                 TextButton.icon(
                   onPressed: () => widget.toggleView(),
-                  icon: Icon(Icons.person),
-                  label: Text('Register'),
+                  icon: const Icon(Icons.person),
+                  label: Text(Strings.register),
                   style: ButtonStyle(
                     foregroundColor: MaterialStateColor.resolveWith((states) => Colors.white),
                     iconColor: MaterialStateColor.resolveWith((states) => Colors.white),
@@ -51,8 +51,8 @@ class _SignInState extends State<SignIn> {
                       children: [
                         const SizedBox(height: 20),
                         TextFormField(
-                          decoration: TextInputDeclaration.copyWith(hintText: 'Email'),
-                          validator: (val) => val?.isEmpty == true ? 'Enter an email' : null,
+                          decoration: TextInputDeclaration.copyWith(hintText: Strings.email),
+                          validator: (val) => val?.isEmpty == true ? Strings.enterAnEmail : null,
                           keyboardType: TextInputType.emailAddress,
                           onChanged: (val) {
                             setState(() => _email = val);
@@ -60,8 +60,8 @@ class _SignInState extends State<SignIn> {
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
-                          decoration: TextInputDeclaration.copyWith(hintText: 'Password'),
-                          validator: (val) => (val == null || val.length < 6) ? 'Enter a password 6+ character long' : null,
+                          decoration: TextInputDeclaration.copyWith(hintText: Strings.password),
+                          validator: (val) => (val == null || val.length < 6) ? Strings.enterPassword : null,
                           obscureText: true,
                           onChanged: (val) {
                             setState(() => _password = val);
@@ -75,20 +75,20 @@ class _SignInState extends State<SignIn> {
                               dynamic result = await _auth.logInWithEmailPass(_email, _password);
                               if (result == null) {
                                 setState(() {
-                                  _error = 'Couldn\'t Sign In';
+                                  _error = Strings.couldNotSignIn;
                                   _loading = false;
                                 });
                               }
                             }
                           },
                           style: ButtonStyle(backgroundColor: MaterialStateColor.resolveWith((states) => Colors.blue.shade900)),
-                          child: const Text(
-                            'Sign In',
-                            style: TextStyle(color: Colors.white),
+                          child: Text(
+                            Strings.signIn,
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
                         const SizedBox(height: 12),
-                        Text(_error, style: TextStyle(color: Colors.red, fontSize: 14))
+                        Text(_error, style: const TextStyle(color: Colors.red, fontSize: 14))
                       ],
                     ))),
           );

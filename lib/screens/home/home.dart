@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/common/constants.dart';
 import 'package:flutter_firebase/models/brew.dart';
 import 'package:flutter_firebase/screens/home/brew_list.dart';
 import 'package:flutter_firebase/screens/home/settings_form.dart';
@@ -19,8 +20,8 @@ class Home extends StatelessWidget {
           context: context,
           builder: (context) {
             return Container(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-              child: SettingsForm(),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+              child: const SettingsForm(),
             );
           });
     }
@@ -31,7 +32,7 @@ class Home extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.brown[100],
           appBar: AppBar(
-            title: Text('Home'),
+            title: Text(Strings.home),
             backgroundColor: Colors.brown[700],
             elevation: 0,
             actions: [
@@ -39,8 +40,8 @@ class Home extends StatelessWidget {
                 onPressed: () async {
                   await _auth.signOut();
                 },
-                icon: Icon(Icons.person),
-                label: Text('Logout'),
+                icon: const Icon(Icons.person),
+                label: Text(Strings.logout),
                 style: ButtonStyle(
                   iconColor: MaterialStateColor.resolveWith((states) => Colors.white),
                   foregroundColor: MaterialStateColor.resolveWith((states) => Colors.white),
@@ -48,8 +49,8 @@ class Home extends StatelessWidget {
               ),
               TextButton.icon(
                 onPressed: () => _showSettingsPanel(),
-                icon: Icon(Icons.settings),
-                label: Text('Settings'),
+                icon: const Icon(Icons.settings),
+                label: Text(Strings.settings),
                 style: ButtonStyle(
                   iconColor: MaterialStateColor.resolveWith((states) => Colors.white),
                   foregroundColor: MaterialStateColor.resolveWith((states) => Colors.white),
@@ -57,7 +58,15 @@ class Home extends StatelessWidget {
               )
             ],
           ),
-          body: BrewList(),
+          body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(Assets.coffeeBg),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: const BrewList(),
+          ),
         ));
   }
 }

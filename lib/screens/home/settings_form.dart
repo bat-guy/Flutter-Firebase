@@ -57,15 +57,15 @@ class _SettingsFormState extends State<SettingsForm> {
               print(userData);
               return Column(
                 children: [
-                  const Text(
-                    'Update your brew settings.',
-                    style: TextStyle(fontSize: 16),
+                  Text(
+                    Strings.updateYourBrewSettings,
+                    style: const TextStyle(fontSize: 16),
                   ),
                   const SizedBox(height: 20),
                   TextFormField(
                     initialValue: (userData?.name != null) ? userData?.name : '',
-                    decoration: TextInputDeclaration.copyWith(hintText: 'Name'),
-                    validator: (val) => val?.isEmpty == true ? 'Enter a name' : null,
+                    decoration: TextInputDeclaration.copyWith(hintText: Strings.name),
+                    validator: (val) => val?.isEmpty == true ? Strings.enterName : null,
                     keyboardType: TextInputType.name,
                     onChanged: (val) => setState(() => _currentName = val),
                   ),
@@ -73,7 +73,12 @@ class _SettingsFormState extends State<SettingsForm> {
                   DropdownButtonFormField(
                     decoration: TextInputDeclaration,
                     value: getSugarsData(userData),
-                    items: _sugars.map((val) => DropdownMenuItem(value: val, child: Text('$val Sugars'))).toList(),
+                    items: _sugars
+                        .map((val) => DropdownMenuItem(
+                              value: val,
+                              child: Text(interpolate(Strings.placeHolderSugars, [val])),
+                            ))
+                        .toList(),
                     onChanged: (val) => _currentSugars = val ?? '',
                   ),
                   const SizedBox(height: 20),
@@ -103,15 +108,15 @@ class _SettingsFormState extends State<SettingsForm> {
                         elevation: MaterialStateProperty.resolveWith((states) => 7),
                         backgroundColor: MaterialStateColor.resolveWith((states) => Colors.red.shade600),
                         padding: MaterialStateProperty.resolveWith((states) => const EdgeInsets.symmetric(horizontal: 40, vertical: 9))),
-                    child: const Text(
-                      'UPDATE',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    child: Text(
+                      Strings.update,
+                      style: const TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   )
                 ],
               );
             } else {
-              return Loading(backgroundColor: Colors.white);
+              return const Loading(backgroundColor: Colors.white);
             }
           }),
     );
