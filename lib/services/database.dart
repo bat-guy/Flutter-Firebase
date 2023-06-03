@@ -13,19 +13,13 @@ class DatabaseService {
   }
 
   List<Brew> _brewListFromSnapshot(QuerySnapshot snapshot) {
-    List<Brew> list = [];
-    try {
-      snapshot.docs.forEach((e) {
-        list.add(Brew(
-          name: e.get('name') ?? '',
-          sugar: e.get('sugars') ?? '0',
-          strength: e.get('strength') ?? 0,
-        ));
-      });
-    } catch (e) {
-      print(e);
-    }
-    return list;
+    return snapshot.docs
+        .map((e) => Brew(
+              name: e.get('name') ?? '',
+              sugar: e.get('sugars') ?? '0',
+              strength: e.get('strength') ?? 0,
+            ))
+        .toList();
   }
 
   UserData _userDataFromSnapshot(DocumentSnapshot snapShot) {
